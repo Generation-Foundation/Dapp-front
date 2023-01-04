@@ -15,9 +15,6 @@ const MainContainer = () => {
   const [dice1, setDice1] = useState(1);
   const [dice2, setDice2] = useState(1);
 
-  console.log(dice1, "dice1");
-  console.log(dice2, "dice2");
-
   const DiceResultArray = [
     "주사위 합",
     "2: x3",
@@ -42,7 +39,7 @@ const MainContainer = () => {
         setWallet(account[0]);
       } catch (error) {}
     } else {
-      console.log("Meta Mask not detected");
+      alert("Meta Mask not detected! Install Meta Mask!");
     }
   };
 
@@ -57,6 +54,7 @@ const MainContainer = () => {
         setDice2(parseInt(dice2[dice2.length - 1]._hex, 16));
       }
     } catch (error) {
+      alert("please connect your wallet.");
       console.log(error);
     }
   };
