@@ -5,7 +5,7 @@ import * as s from "./buttonStyle";
 import { IButtonComponentProps } from "./button.types";
 
 const ButtonComponent = (props: IButtonComponentProps) => {
-  return <s.Button>{props.text}</s.Button>;
+  return <s.Button onClick={props.onClick}>{props.text}</s.Button>;
 };
 
 export default ButtonComponent;

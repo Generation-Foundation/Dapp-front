@@ -8,11 +8,17 @@ import DiceComponent from "../../commons/dice/dice";
 // type import
 import { IMainPresenterProps } from "./main.types";
 
+// library
+import { v4 as uuid } from "uuid";
+
 const MainPresenter = (props: IMainPresenterProps) => {
   return (
     <>
       <s.Wrapper>
-        <ButtonComponent text={"Connect Wallet"} />
+        <ButtonComponent
+          text={"Connect Wallet"}
+          onClick={props.onClickConnectWallet}
+        />
         <s.Title>Field Bet Craps</s.Title>
         <s.BettingContainer>
           <s.BettingText>Bet:</s.BettingText>
@@ -20,15 +26,15 @@ const MainPresenter = (props: IMainPresenterProps) => {
         </s.BettingContainer>
         <s.DiceResultContainer>
           {props.DiceResultArray.map((el: string) => (
-            <s.DiceResult>{el}</s.DiceResult>
+            <s.DiceResult key={uuid()}>{el}</s.DiceResult>
           ))}
         </s.DiceResultContainer>
         <s.DiceContainer>
-          <DiceComponent number={4} />
-          <DiceComponent number={4} />
+          <DiceComponent number={props.dice1} />
+          <DiceComponent number={props.dice2} />
         </s.DiceContainer>
-        <s.Sum>4</s.Sum>
-        <ButtonComponent text="Roll" />
+        <s.Sum>{props.dice1 + props.dice2}</s.Sum>
+        <ButtonComponent text="Roll" onClick={props.onClickRoll} />
       </s.Wrapper>
     </>
   );

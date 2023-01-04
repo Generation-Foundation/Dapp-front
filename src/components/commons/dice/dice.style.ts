@@ -1,5 +1,9 @@
 import styled from "@emotion/styled";
 
+interface IStyle {
+  position?: string;
+}
+
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -20,7 +24,12 @@ export const DatItem = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: ${(props: IStyle) =>
+    props.position === "right"
+      ? "flex-end"
+      : props.position === "left"
+      ? "flex-start"
+      : "space-around"};
   margin-bottom: 10px;
 `;
 

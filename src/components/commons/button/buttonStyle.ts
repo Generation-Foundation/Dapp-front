@@ -8,7 +8,4 @@ export const Button = styled.button`
   font-size: 30px;
   background-color: #ffcc33;
   cursor: pointer;
-  &:hover {
-    background-color: #ff9900;
-  }
 `;
