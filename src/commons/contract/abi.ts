@@ -240,6 +240,19 @@ export const contractABI = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "arrCheck",
+    outputs: [
+      {
+        internalType: "uint256[]",
+        name: "",
+        type: "uint256[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [
       {
         internalType: "address",
@@ -273,32 +286,6 @@ export const contractABI = [
   },
   {
     inputs: [],
-    name: "diceArr1",
-    outputs: [
-      {
-        internalType: "uint256[]",
-        name: "",
-        type: "uint256[]",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "diceArr2",
-    outputs: [
-      {
-        internalType: "uint256[]",
-        name: "",
-        type: "uint256[]",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
     name: "name",
     outputs: [
       {
@@ -325,19 +312,6 @@ export const contractABI = [
   },
   {
     inputs: [],
-    name: "resultFunc",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
     name: "symbol",
     outputs: [
       {
@@ -347,6 +321,45 @@ export const contractABI = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "randomDiceNum1",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "randomDiceNum2",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "resultaa",
+        type: "uint256",
+      },
+    ],
+    name: "testFunc",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "pure",
     type: "function",
   },
   {
