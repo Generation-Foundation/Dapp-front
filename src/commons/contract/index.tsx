@@ -8,7 +8,7 @@ declare const window: typeof globalThis & {
 export const onClickContract = () => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const singer = provider.getSigner();
-  const contractAddress = "0xb20e4Db2c6C8F547d940B58E36397bFB1Ce842E5";
+  const contractAddress = "0xf7245D04f34b2F0e27c5221c1ee03D3AEB9454F1";
   const diceContract = new ethers.Contract(
     contractAddress,
     contractABI,

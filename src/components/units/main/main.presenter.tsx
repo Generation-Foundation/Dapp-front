@@ -22,7 +22,7 @@ const MainPresenter = (props: IMainPresenterProps) => {
         <s.Title>Field Bet Craps</s.Title>
         <s.BettingContainer>
           <s.BettingText>Bet:</s.BettingText>
-          <s.BettingInput />
+          <s.BettingInput onChange={props.onChangeBettingPrice} />
         </s.BettingContainer>
         <s.DiceResultContainer>
           {props.DiceResultArray.map((el: string) => (
