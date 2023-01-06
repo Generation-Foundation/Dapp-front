@@ -15,6 +15,7 @@ const MainPresenter = (props: IMainPresenterProps) => {
   return (
     <>
       <s.Wrapper>
+        {props.contractWait && <div>안녕ㅇㅇㅇㅇ</div>}
         <ButtonComponent
           text={"Connect Wallet"}
           onClick={props.onClickConnectWallet}
@@ -33,7 +34,7 @@ const MainPresenter = (props: IMainPresenterProps) => {
           <DiceComponent number={props.dice1} />
           <DiceComponent number={props.dice2} />
         </s.DiceContainer>
-        <s.Sum>{props.dice1 + props.dice2}</s.Sum>
+        <s.Sum>{props.diceSum}</s.Sum>
         <ButtonComponent text="Roll" onClick={props.onClickRoll} />
       </s.Wrapper>
     </>

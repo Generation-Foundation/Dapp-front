@@ -15,6 +15,8 @@ const MainContainer = () => {
   const [bettingPrice, setBettingPrice] = useState<number>(0);
   const [dice1, setDice1] = useState<number>(1);
   const [dice2, setDice2] = useState<number>(1);
+  const [diceSum, setDiceSum] = useState<number>(2);
+  const [contractWait, setContractWait] = useState(false);
 
   const DiceResultArray = [
     "주사위 합",
@@ -32,12 +34,8 @@ const MainContainer = () => {
   ];
 
   const onChangeBettingPrice = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
     setBettingPrice(Number((e.target as HTMLInputElement).value));
-    console.log(Number(e.target.value) * 10 ** 18);
   };
-
-  console.log(bettingPrice, "bettingPrice");
 
   const onClickConnectWallet = async () => {
     if (window.ethereum) {
@@ -55,29 +53,37 @@ const MainContainer = () => {
 
   const onClickRoll = async () => {
     try {
+      setContractWait(true);
       const diceContract = await onClickContract();
       const result = await diceContract.roll(String(bettingPrice * 10 ** 18));
-      if (result.wait.length === 1) {
-        const dice1 = await diceContract.diceArr1();
-        const dice2 = await diceContract.diceArr2();
-        console.log(parseInt(dice1[dice1.length - 1]._hex, 16), "aa");
-        console.log(parseInt(dice2[dice2.length - 1]._hex, 16), "bb");
-        setDice1(parseInt(dice1[dice1.length - 1]._hex, 16));
-        setDice2(parseInt(dice2[dice2.length - 1]._hex, 16));
+      const complete = await result.wait();
+      if (complete.status === 1) {
+        const diceArr = await diceContract.arrCheck();
+        const dice1 = parseInt(diceArr[diceArr.length - 3]._hex, 16);
+        const dice2 = parseInt(diceArr[diceArr.length - 2]._hex, 16);
+        const diceSum = parseInt(diceArr[diceArr.length - 1]._hex, 16);
+        setDice1(dice1);
+        setDice2(dice2);
+        setDiceSum(diceSum);
       }
+      setContractWait(false);
     } catch (error) {
-      alert("please connect your wallet.");
+      setContractWait(false);
+      alert(error);
       console.log(error);
     }
   };
 
-  console.log(dice1, "aaaa");
-  console.log(dice2, "bbbb");
+  console.log(dice1, "dice1");
+  console.log(dice2, "dice2");
+  console.log(diceSum, "diceSum");
 
   return (
     <MainPresenter
       dice1={dice1}
       dice2={dice2}
+      diceSum={diceSum}
+      contractWait={contractWait}
       DiceResultArray={DiceResultArray}
       onChangeBettingPrice={onChangeBettingPrice}
       onClickConnectWallet={onClickConnectWallet}
