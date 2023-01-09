@@ -34,8 +34,19 @@ const MainContainer = () => {
   ];
 
   const onChangeBettingPrice = (e: ChangeEvent<HTMLInputElement>) => {
-    setBettingPrice(Number((e.target as HTMLInputElement).value));
+    if (
+      Number((e.target as HTMLInputElement).value) >= 1 &&
+      Number((e.target as HTMLInputElement).value) <= 100
+    ) {
+      setBettingPrice(Number((e.target as HTMLInputElement).value));
+    } else {
+      alert("Put a number between 1 and 100.");
+      setBettingPrice(0);
+      (e.target as HTMLInputElement).value = "";
+    }
   };
+
+  console.log(bettingPrice, "bettingPrice");
 
   const onClickConnectWallet = async () => {
     if (window.ethereum) {
@@ -52,6 +63,12 @@ const MainContainer = () => {
   };
 
   const onClickRoll = async () => {
+    console.log(bettingPrice, "bettingPrice");
+
+    if (bettingPrice === 0) {
+      alert("Put the token in the input");
+      return;
+    }
     try {
       setContractWait(true);
       if (contractWait) {
@@ -74,12 +91,10 @@ const MainContainer = () => {
       setContractWait(false);
     } catch (error) {
       setContractWait(false);
-      alert(error);
+      alert("An error has occurred");
       console.log(error);
     }
   };
-
-  console.log();
 
   return (
     <MainPresenter
