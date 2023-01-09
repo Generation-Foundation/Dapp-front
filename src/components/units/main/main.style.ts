@@ -10,6 +10,18 @@ export const Wrapper = styled.div`
   width: 100%;
 `;
 
+export const LoadingContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+`;
+
 export const Title = styled.div`
   display: flex;
   flex-direction: row;

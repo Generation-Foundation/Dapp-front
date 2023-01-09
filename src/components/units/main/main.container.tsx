@@ -54,6 +54,9 @@ const MainContainer = () => {
   const onClickRoll = async () => {
     try {
       setContractWait(true);
+      if (contractWait) {
+        document.body.style.overflow = "hidden";
+      }
       const diceContract = await onClickContract();
       const result = await diceContract.roll(String(bettingPrice * 10 ** 18));
       const complete = await result.wait();
@@ -73,10 +76,6 @@ const MainContainer = () => {
       console.log(error);
     }
   };
-
-  console.log(dice1, "dice1");
-  console.log(dice2, "dice2");
-  console.log(diceSum, "diceSum");
 
   return (
     <MainPresenter
