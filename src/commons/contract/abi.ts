@@ -240,19 +240,6 @@ export const contractABI = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "arrCheck",
-    outputs: [
-      {
-        internalType: "uint256[]",
-        name: "",
-        type: "uint256[]",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
       {
         internalType: "address",
@@ -279,6 +266,19 @@ export const contractABI = [
         internalType: "uint8",
         name: "",
         type: "uint8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "diceResultCheck",
+    outputs: [
+      {
+        internalType: "uint256[]",
+        name: "",
+        type: "uint256[]",
       },
     ],
     stateMutability: "view",
@@ -321,45 +321,6 @@ export const contractABI = [
       },
     ],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "randomDiceNum1",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "randomDiceNum2",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "resultaa",
-        type: "uint256",
-      },
-    ],
-    name: "testFunc",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "pure",
     type: "function",
   },
   {
