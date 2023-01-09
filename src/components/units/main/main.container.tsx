@@ -58,13 +58,15 @@ const MainContainer = () => {
         document.body.style.overflow = "hidden";
       }
       const diceContract = await onClickContract();
-      const result = await diceContract.roll(String(bettingPrice * 10 ** 18));
+      const result = await diceContract.roll(String(bettingPrice * 10 ** 18), {
+        gasLimit: 100000,
+      });
       const complete = await result.wait();
       if (complete.status === 1) {
-        const diceArr = await diceContract.arrCheck();
-        const dice1 = parseInt(diceArr[diceArr.length - 3]._hex, 16);
-        const dice2 = parseInt(diceArr[diceArr.length - 2]._hex, 16);
-        const diceSum = parseInt(diceArr[diceArr.length - 1]._hex, 16);
+        const diceArr = await diceContract.diceResultCheck();
+        const dice1 = parseInt(diceArr[0]._hex, 16);
+        const dice2 = parseInt(diceArr[1]._hex, 16);
+        const diceSum = parseInt(diceArr[2]._hex, 16);
         setDice1(dice1);
         setDice2(dice2);
         setDiceSum(diceSum);
@@ -76,6 +78,8 @@ const MainContainer = () => {
       console.log(error);
     }
   };
+
+  console.log();
 
   return (
     <MainPresenter
