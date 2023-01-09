@@ -1,5 +1,6 @@
 // css import
 import * as s from "./main.style";
+import { Spin } from "antd";
 
 // component import
 import ButtonComponent from "../../commons/button/button";
@@ -15,7 +16,11 @@ const MainPresenter = (props: IMainPresenterProps) => {
   return (
     <>
       <s.Wrapper>
-        {props.contractWait && <div>안녕ㅇㅇㅇㅇ</div>}
+        {props.contractWait && (
+          <s.LoadingContainer>
+            <Spin tip="Loading" size="large" />
+          </s.LoadingContainer>
+        )}
         <ButtonComponent
           text={"Connect Wallet"}
           onClick={props.onClickConnectWallet}
