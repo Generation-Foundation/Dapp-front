@@ -15,6 +15,8 @@ import {
   diceSumState,
 } from "../../../commons/store";
 
+import { isMobile, browserName } from "react-device-detect";
+
 declare const window: typeof globalThis & {
   ethereum: any;
 };
@@ -60,6 +62,12 @@ const MainContainer = () => {
   };
 
   const onClickConnectWallet = async () => {
+    console.log(browserName);
+    if (browserName === "Mobile Safari" || browserName === "Mobile Chrome") {
+      alert("Please go into the Metamask browser.");
+      return;
+    }
+
     if (window.ethereum) {
       try {
         const account = await window.ethereum.request({
@@ -85,7 +93,7 @@ const MainContainer = () => {
       }
       const diceContract = await onClickContract();
       const result = await diceContract.roll(String(bettingPrice * 10 ** 18), {
-        gasLimit: 100000,
+        gasLimit: 2000000,
       });
       const complete = await result.wait();
       if (complete.status === 1) {
@@ -112,6 +120,7 @@ const MainContainer = () => {
 
   return (
     <MainPresenter
+      wallet={wallet}
       dice1={dice1}
       dice2={dice2}
       diceSum={diceSum}

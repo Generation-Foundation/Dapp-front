@@ -28,8 +28,13 @@ const MainPresenter = (props: IMainPresenterProps) => {
           </s.LoadingContainer>
         )}
         <ButtonComponent
-          text={"Connect Wallet"}
+          text={
+            props.wallet === ""
+              ? "Please connect your wallet."
+              : "Your wallet is connected."
+          }
           onClick={props.onClickConnectWallet}
+          disabled={props.wallet === "" ? false : true}
         />
         <s.Title>Field Bet Craps</s.Title>
         <s.BettingContainer>

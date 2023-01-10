@@ -1,5 +1,6 @@
 import { ChangeEvent } from "react";
 export interface IMainPresenterProps {
+  wallet: string;
   dice1: number;
   dice2: number;
   diceSum: number;

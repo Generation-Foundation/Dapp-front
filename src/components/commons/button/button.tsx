@@ -5,7 +5,11 @@ import * as s from "./buttonStyle";
 import { IButtonComponentProps } from "./button.types";
 
 const ButtonComponent = (props: IButtonComponentProps) => {
-  return <s.Button onClick={props.onClick}>{props.text}</s.Button>;
+  return (
+    <s.Button onClick={props.onClick} disabled={props.disabled || false}>
+      {props.text}
+    </s.Button>
+  );
 };
 
 export default ButtonComponent;

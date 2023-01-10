@@ -64,6 +64,6 @@ export const Benefit = styled.div`
   align-items: center;
   justify-content: center;
   margin-bottom: 10px;
-  font-size: 30px;
+  font-size: 20px;
   color: blue;
 `;
