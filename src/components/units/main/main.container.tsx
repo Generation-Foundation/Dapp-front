@@ -17,6 +17,7 @@ const MainContainer = () => {
   const [dice2, setDice2] = useState<number>(1);
   const [diceSum, setDiceSum] = useState<number>(2);
   const [contractWait, setContractWait] = useState(false);
+  const [openResultModal, setOpenResultModal] = useState(false);
 
   const winArray = [
     "User Win",
@@ -44,8 +45,6 @@ const MainContainer = () => {
     }
   };
 
-  console.log(bettingPrice, "bettingPrice");
-
   const onClickConnectWallet = async () => {
     if (window.ethereum) {
       try {
@@ -61,8 +60,6 @@ const MainContainer = () => {
   };
 
   const onClickRoll = async () => {
-    console.log(bettingPrice, "bettingPrice");
-
     if (bettingPrice === 0) {
       alert("Put the token in the input");
       return;
@@ -87,11 +84,16 @@ const MainContainer = () => {
         setDiceSum(diceSum);
       }
       setContractWait(false);
+      setOpenResultModal(true);
     } catch (error) {
       setContractWait(false);
       alert("An error has occurred");
       console.log(error);
     }
+  };
+
+  const onClickCloseModal = () => {
+    setOpenResultModal(false);
   };
 
   return (
@@ -100,11 +102,13 @@ const MainContainer = () => {
       dice2={dice2}
       diceSum={diceSum}
       contractWait={contractWait}
+      openResultModal={openResultModal}
       winArray={winArray}
       loseArray={loseArray}
       onChangeBettingPrice={onChangeBettingPrice}
       onClickConnectWallet={onClickConnectWallet}
       onClickRoll={onClickRoll}
+      onClickCloseModal={onClickCloseModal}
     />
   );
 };

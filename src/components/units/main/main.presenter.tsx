@@ -11,6 +11,7 @@ import { IMainPresenterProps } from "./main.types";
 
 // library
 import { v4 as uuid } from "uuid";
+import ModalComponent from "../../commons/modal/modal";
 
 const MainPresenter = (props: IMainPresenterProps) => {
   return (
@@ -19,6 +20,15 @@ const MainPresenter = (props: IMainPresenterProps) => {
         {props.contractWait && (
           <s.LoadingContainer>
             <Spin tip="Loading" size="large" />
+          </s.LoadingContainer>
+        )}
+        {props.openResultModal && (
+          <s.LoadingContainer>
+            <ModalComponent
+              title="lose"
+              subTitle="lose"
+              fn={props.onClickCloseModal}
+            />
           </s.LoadingContainer>
         )}
         <ButtonComponent
