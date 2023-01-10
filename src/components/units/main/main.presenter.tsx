@@ -11,6 +11,7 @@ import { IMainPresenterProps } from "./main.types";
 
 // library
 import { v4 as uuid } from "uuid";
+import ModalComponent from "../../commons/modal/modal";
 
 const MainPresenter = (props: IMainPresenterProps) => {
   return (
@@ -19,6 +20,11 @@ const MainPresenter = (props: IMainPresenterProps) => {
         {props.contractWait && (
           <s.LoadingContainer>
             <Spin tip="Loading" size="large" />
+          </s.LoadingContainer>
+        )}
+        {props.openResultModal && (
+          <s.LoadingContainer>
+            <ModalComponent fn={props.onClickCloseModal} />
           </s.LoadingContainer>
         )}
         <ButtonComponent
@@ -31,9 +37,16 @@ const MainPresenter = (props: IMainPresenterProps) => {
           <s.BettingInput onChange={props.onChangeBettingPrice} />
         </s.BettingContainer>
         <s.DiceResultContainer>
-          {props.DiceResultArray.map((el: string) => (
-            <s.DiceResult key={uuid()}>{el}</s.DiceResult>
-          ))}
+          <s.DiceResultBox>
+            {props.winArray.map((el: string) => (
+              <div key={uuid()}>{el}</div>
+            ))}
+          </s.DiceResultBox>
+          <s.DiceResultBox>
+            {props.loseArray.map((el: string) => (
+              <div key={uuid()}>{el}</div>
+            ))}
+          </s.DiceResultBox>
         </s.DiceResultContainer>
         <s.DiceContainer>
           <DiceComponent number={props.dice1} />

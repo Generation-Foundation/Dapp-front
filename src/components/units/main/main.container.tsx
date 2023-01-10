@@ -1,10 +1,19 @@
 import { ChangeEvent, useState } from "react";
 
-//
+// import presenter
 import MainPresenter from "./main.presenter";
 
-// contract import
+// import contract
 import { onClickContract } from "../../../commons/contract/index";
+
+// import global state
+import { useRecoilState } from "recoil";
+import {
+  BettingState,
+  dice1State,
+  dice2State,
+  diceSumState,
+} from "../../../commons/store";
 
 declare const window: typeof globalThis & {
   ethereum: any;
@@ -13,25 +22,27 @@ declare const window: typeof globalThis & {
 const MainContainer = () => {
   const [wallet, setWallet] = useState<string>("");
   const [bettingPrice, setBettingPrice] = useState<number>(0);
-  const [dice1, setDice1] = useState<number>(1);
-  const [dice2, setDice2] = useState<number>(1);
-  const [diceSum, setDiceSum] = useState<number>(2);
   const [contractWait, setContractWait] = useState(false);
+  const [openResultModal, setOpenResultModal] = useState(false);
 
-  const DiceResultArray = [
-    "주사위 합",
+  // global state
+  const [dice1, setDice1] = useRecoilState(dice1State);
+  const [dice2, setDice2] = useRecoilState(dice2State);
+  const [diceSum, setDiceSum] = useRecoilState(diceSumState);
+  const [, setBetting] = useRecoilState(BettingState);
+
+  const winArray = [
+    "User Win",
     "2: x3",
     "3: x2",
     "4: x2",
-    "5: lose",
-    "6: lose",
-    "7: lose",
-    "8: lose",
     "9: x2",
     "10: x2",
     "11: x2",
     "12: x3",
   ];
+
+  const loseArray = ["User Lose", "5: lose", "6: lose", "7: lose", "8: lose"];
 
   const onChangeBettingPrice = (e: ChangeEvent<HTMLInputElement>) => {
     if (
@@ -39,14 +50,14 @@ const MainContainer = () => {
       Number((e.target as HTMLInputElement).value) <= 100
     ) {
       setBettingPrice(Number((e.target as HTMLInputElement).value));
+      setBetting(Number((e.target as HTMLInputElement).value));
     } else {
       alert("Put a number between 1 and 100.");
       setBettingPrice(0);
+      setBetting(0);
       (e.target as HTMLInputElement).value = "";
     }
   };
-
-  console.log(bettingPrice, "bettingPrice");
 
   const onClickConnectWallet = async () => {
     if (window.ethereum) {
@@ -63,8 +74,6 @@ const MainContainer = () => {
   };
 
   const onClickRoll = async () => {
-    console.log(bettingPrice, "bettingPrice");
-
     if (bettingPrice === 0) {
       alert("Put the token in the input");
       return;
@@ -89,11 +98,16 @@ const MainContainer = () => {
         setDiceSum(diceSum);
       }
       setContractWait(false);
+      setOpenResultModal(true);
     } catch (error) {
       setContractWait(false);
       alert("An error has occurred");
       console.log(error);
     }
+  };
+
+  const onClickCloseModal = () => {
+    setOpenResultModal(false);
   };
 
   return (
@@ -102,10 +116,13 @@ const MainContainer = () => {
       dice2={dice2}
       diceSum={diceSum}
       contractWait={contractWait}
-      DiceResultArray={DiceResultArray}
+      openResultModal={openResultModal}
+      winArray={winArray}
+      loseArray={loseArray}
       onChangeBettingPrice={onChangeBettingPrice}
       onClickConnectWallet={onClickConnectWallet}
       onClickRoll={onClickRoll}
+      onClickCloseModal={onClickCloseModal}
     />
   );
 };
