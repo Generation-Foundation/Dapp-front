@@ -48,7 +48,7 @@ const MainContainer = () => {
 
   const onChangeBettingPrice = (e: ChangeEvent<HTMLInputElement>) => {
     if (
-      Number((e.target as HTMLInputElement).value) >= 1 &&
+      Number((e.target as HTMLInputElement).value) >= 0 &&
       Number((e.target as HTMLInputElement).value) <= 100
     ) {
       setBettingPrice(Number((e.target as HTMLInputElement).value));
