@@ -39,7 +39,10 @@ const MainPresenter = (props: IMainPresenterProps) => {
         <s.Title>Field Bet Craps</s.Title>
         <s.BettingContainer>
           <s.BettingText>Bet:</s.BettingText>
-          <s.BettingInput onChange={props.onChangeBettingPrice} />
+          <s.BettingInput
+            onChange={props.onChangeBettingPrice}
+            placeholder="Just enter the numbers."
+          />
         </s.BettingContainer>
         <s.DiceResultContainer>
           <s.DiceResultBox>
