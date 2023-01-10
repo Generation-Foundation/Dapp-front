@@ -18,20 +18,18 @@ const MainContainer = () => {
   const [diceSum, setDiceSum] = useState<number>(2);
   const [contractWait, setContractWait] = useState(false);
 
-  const DiceResultArray = [
-    "주사위 합",
+  const winArray = [
+    "User Win",
     "2: x3",
     "3: x2",
     "4: x2",
-    "5: lose",
-    "6: lose",
-    "7: lose",
-    "8: lose",
     "9: x2",
     "10: x2",
     "11: x2",
     "12: x3",
   ];
+
+  const loseArray = ["User Lose", "5: lose", "6: lose", "7: lose", "8: lose"];
 
   const onChangeBettingPrice = (e: ChangeEvent<HTMLInputElement>) => {
     if (
@@ -102,7 +100,8 @@ const MainContainer = () => {
       dice2={dice2}
       diceSum={diceSum}
       contractWait={contractWait}
-      DiceResultArray={DiceResultArray}
+      winArray={winArray}
+      loseArray={loseArray}
       onChangeBettingPrice={onChangeBettingPrice}
       onClickConnectWallet={onClickConnectWallet}
       onClickRoll={onClickRoll}

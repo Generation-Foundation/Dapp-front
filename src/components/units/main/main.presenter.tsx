@@ -31,9 +31,16 @@ const MainPresenter = (props: IMainPresenterProps) => {
           <s.BettingInput onChange={props.onChangeBettingPrice} />
         </s.BettingContainer>
         <s.DiceResultContainer>
-          {props.DiceResultArray.map((el: string) => (
-            <s.DiceResult key={uuid()}>{el}</s.DiceResult>
-          ))}
+          <s.DiceResultBox>
+            {props.winArray.map((el: string) => (
+              <div key={uuid()}>{el}</div>
+            ))}
+          </s.DiceResultBox>
+          <s.DiceResultBox>
+            {props.loseArray.map((el: string) => (
+              <div key={uuid()}>{el}</div>
+            ))}
+          </s.DiceResultBox>
         </s.DiceResultContainer>
         <s.DiceContainer>
           <DiceComponent number={props.dice1} />
