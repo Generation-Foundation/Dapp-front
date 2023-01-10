@@ -24,11 +24,7 @@ const MainPresenter = (props: IMainPresenterProps) => {
         )}
         {props.openResultModal && (
           <s.LoadingContainer>
-            <ModalComponent
-              title="lose"
-              subTitle="lose"
-              fn={props.onClickCloseModal}
-            />
+            <ModalComponent fn={props.onClickCloseModal} />
           </s.LoadingContainer>
         )}
         <ButtonComponent

@@ -1,10 +1,19 @@
 import { ChangeEvent, useState } from "react";
 
-//
+// import presenter
 import MainPresenter from "./main.presenter";
 
-// contract import
+// import contract
 import { onClickContract } from "../../../commons/contract/index";
+
+// import global state
+import { useRecoilState } from "recoil";
+import {
+  BettingState,
+  dice1State,
+  dice2State,
+  diceSumState,
+} from "../../../commons/store";
 
 declare const window: typeof globalThis & {
   ethereum: any;
@@ -13,11 +22,14 @@ declare const window: typeof globalThis & {
 const MainContainer = () => {
   const [wallet, setWallet] = useState<string>("");
   const [bettingPrice, setBettingPrice] = useState<number>(0);
-  const [dice1, setDice1] = useState<number>(1);
-  const [dice2, setDice2] = useState<number>(1);
-  const [diceSum, setDiceSum] = useState<number>(2);
   const [contractWait, setContractWait] = useState(false);
   const [openResultModal, setOpenResultModal] = useState(false);
+
+  // global state
+  const [dice1, setDice1] = useRecoilState(dice1State);
+  const [dice2, setDice2] = useRecoilState(dice2State);
+  const [diceSum, setDiceSum] = useRecoilState(diceSumState);
+  const [, setBetting] = useRecoilState(BettingState);
 
   const winArray = [
     "User Win",
@@ -38,9 +50,11 @@ const MainContainer = () => {
       Number((e.target as HTMLInputElement).value) <= 100
     ) {
       setBettingPrice(Number((e.target as HTMLInputElement).value));
+      setBetting(Number((e.target as HTMLInputElement).value));
     } else {
       alert("Put a number between 1 and 100.");
       setBettingPrice(0);
+      setBetting(0);
       (e.target as HTMLInputElement).value = "";
     }
   };
