@@ -4,7 +4,10 @@ import { ChangeEvent, useState } from "react";
 import MainPresenter from "./main.presenter";
 
 // import contract
-import { onClickContract } from "../../../commons/contract/index";
+import {
+  executeApproveContract,
+  executeRollContract,
+} from "../../../commons/contract/contract";
 
 // import global state
 import { useRecoilState } from "recoil";
@@ -45,6 +48,8 @@ const MainContainer = () => {
   ];
 
   const loseArray = ["User Lose", "5: lose", "6: lose", "7: lose", "8: lose"];
+
+  const rollAddress = "0x2634DaF3363545D0e2768A166a39D731AA8224b5";
 
   const onChangeBettingPrice = (e: ChangeEvent<HTMLInputElement>) => {
     if (
@@ -91,19 +96,30 @@ const MainContainer = () => {
       if (contractWait) {
         document.body.style.overflow = "hidden";
       }
-      const diceContract = await onClickContract();
-      const result = await diceContract.roll(String(bettingPrice * 10 ** 18), {
-        gasLimit: 2000000,
-      });
-      const complete = await result.wait();
-      if (complete.status === 1) {
-        const diceArr = await diceContract.diceResultCheck();
-        const dice1 = parseInt(diceArr[0]._hex, 16);
-        const dice2 = parseInt(diceArr[1]._hex, 16);
-        const diceSum = parseInt(diceArr[2]._hex, 16);
-        setDice1(dice1);
-        setDice2(dice2);
-        setDiceSum(diceSum);
+      const approveContract = await executeApproveContract();
+      const approveResult = await approveContract.approve(
+        rollAddress,
+        String(bettingPrice * 10 ** 18)
+      );
+      const approveComplete = await approveResult.wait();
+      if (approveComplete.status === 1) {
+        const diceContract = await executeRollContract();
+        const result = await diceContract.userBet(
+          String(bettingPrice * 10 ** 18),
+          {
+            gasLimit: 500000,
+          }
+        );
+        const complete = await result.wait();
+        if (complete.status === 1) {
+          const diceArr = await diceContract.diceResultCheck();
+          const dice1 = parseInt(diceArr[0]._hex, 16);
+          const dice2 = parseInt(diceArr[1]._hex, 16);
+          const diceSum = parseInt(diceArr[2]._hex, 16);
+          setDice1(dice1);
+          setDice2(dice2);
+          setDiceSum(diceSum);
+        }
       }
       setContractWait(false);
       setOpenResultModal(true);
