@@ -99,13 +99,14 @@ const MainContainer = () => {
       }
       setTest("처음");
       const approveContract = await executeApproveContract();
+      setTest("approveContract 완료, approve 중");
       const approveResult = await approveContract.approve(
         rollAddress,
         String(bettingPrice * 10 ** 18)
       );
-      setTest("approve 중");
+      setTest("approve 1차 성공");
       const approveComplete = await approveResult.wait();
-      setTest("approve 성공");
+      setTest("approve 완전 성공");
       if (approveComplete.status === 1) {
         setTest("roll 중");
         const diceContract = await executeRollContract();
