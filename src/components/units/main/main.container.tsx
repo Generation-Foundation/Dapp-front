@@ -133,7 +133,7 @@ const MainContainer = () => {
       setOpenResultModal(true);
     } catch (error) {
       setContractWait(false);
-      alert("An error has occurred");
+      alert(error);
     }
   };
 
