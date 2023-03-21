@@ -37,7 +37,7 @@ const MainPresenter = (props: IMainPresenterProps) => {
           onClick={props.onClickConnectWallet}
           disabled={props.wallet === "" ? false : true}
         />
-        <s.Title>Field Bet Craps</s.Title>
+        <s.Title>🤪Field Bet Craps</s.Title>
         <s.BettingContainer>
           <s.BettingText>Bet:</s.BettingText>
           <s.BettingInput
