@@ -20,6 +20,7 @@ const MainPresenter = (props: IMainPresenterProps) => {
         {props.contractWait && (
           <s.LoadingContainer>
             <Spin tip="Loading" size="large" />
+            <s.Test>{props.test}</s.Test>
           </s.LoadingContainer>
         )}
         {props.openResultModal && (

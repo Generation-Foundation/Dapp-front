@@ -5,6 +5,7 @@ export interface IMainPresenterProps {
   dice2: number;
   diceSum: number;
   contractWait: boolean;
+  test: string;
   openResultModal: boolean;
   winArray: Array<string>;
   loseArray: Array<string>;

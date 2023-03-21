@@ -88,3 +88,8 @@ export const Sum = styled.div`
   font-size: 50px;
   color: red;
 `;
+
+export const Test = styled.div`
+  font-size: large;
+  color: red;
+`;

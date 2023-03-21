@@ -29,6 +29,7 @@ const MainContainer = () => {
   const [bettingPrice, setBettingPrice] = useState<number>(0);
   const [contractWait, setContractWait] = useState(false);
   const [openResultModal, setOpenResultModal] = useState(false);
+  const [test, setTest] = useState("");
 
   // global state
   const [dice1, setDice1] = useRecoilState(dice1State);
@@ -101,8 +102,11 @@ const MainContainer = () => {
         rollAddress,
         String(bettingPrice * 10 ** 18)
       );
+      setTest("approve 중");
       const approveComplete = await approveResult.wait();
+      setTest("approve 성공");
       if (approveComplete.status === 1) {
+        setTest("roll 중");
         const diceContract = await executeRollContract();
         const result = await diceContract.userBet(
           String(bettingPrice * 10 ** 18),
@@ -111,6 +115,7 @@ const MainContainer = () => {
           }
         );
         const complete = await result.wait();
+        setTest("roll 성공");
         if (complete.status === 1) {
           const diceArr = await diceContract.diceResultCheck();
           const dice1 = parseInt(diceArr[0]._hex, 16);
@@ -119,6 +124,7 @@ const MainContainer = () => {
           setDice1(dice1);
           setDice2(dice2);
           setDiceSum(diceSum);
+          setTest("완료");
         }
       }
       setContractWait(false);
@@ -126,7 +132,6 @@ const MainContainer = () => {
     } catch (error) {
       setContractWait(false);
       alert("An error has occurred");
-      console.log(error);
     }
   };
 
@@ -141,6 +146,7 @@ const MainContainer = () => {
       dice2={dice2}
       diceSum={diceSum}
       contractWait={contractWait}
+      test={test}
       openResultModal={openResultModal}
       winArray={winArray}
       loseArray={loseArray}
