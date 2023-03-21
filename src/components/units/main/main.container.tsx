@@ -97,6 +97,7 @@ const MainContainer = () => {
       if (contractWait) {
         document.body.style.overflow = "hidden";
       }
+      setTest("처음");
       const approveContract = await executeApproveContract();
       const approveResult = await approveContract.approve(
         rollAddress,
